@@ -1,5 +1,6 @@
 <script>
 
+    //function to randomly choose between the 3 options in the array
     function getComputerChoice(){
         let cpuOptions = [
             `rock`,
@@ -10,37 +11,63 @@
         return computer;
     }
 
-    
+    //sets variables to keep track of the player and the CPUs score
+    let cpuScore = 0;
+    let playerScore = 0;
     const computerSelection = getComputerChoice();
-    console.log(computerSelection);
 
-    function playRound(){
+    function playRound(result){
 
+        //lots of logic to cover every possible input of rock, paper and scissors
+        //but not other words, misspelled words, non-input, etc
         const userInput = prompt("Please enter rock, paper or scissors");
         const playerSelection = userInput.toLowerCase();
-        console.log(playerSelection);
         if (playerSelection == computerSelection) {
             console.log("It's a draw!");
         } else if (playerSelection === `rock`) {
             if (computerSelection === `paper`) {
                 console.log("You Lose! Paper beats Rock");
+                cpuScore++;
             } else {
                 console.log("You win! Rock beats Scissors");
+                playerScore++;
             }
         } else if (playerSelection === `paper`) {
             if (computerSelection === `scissors`) {
                 console.log("You Lose! Scissors beats Paper");
+                cpuScore++;
             } else {
                 console.log("You win! Paper beats Rock");
+                playerScore++;
             }
         } else if (playerSelection === `scissors`) {
             if (computerSelection === `rock`) {
                 console.log("You Lose! Rock beats Scissors");
+                cpuScore++;
             } else {
                 console.log("You win! Scissors beats Paper");
+                playerScore++;
             }
         }
     }
-
+    function game(){
   
+        //plays a best of 5 game
+        for (let games = 0; games < 5; games++){
+            playRound();
+            console.log(`Best of 5 results so far: You: ${playerScore} CPU: ${cpuScore}`);
+        }
+        if (cpuScore > playerScore) {
+            console.log(`You lose!`);
+        }
+        else if (playerScore > cpuScore) {
+            console.log(`You win!`);
+        }
+        else console.log(`It's a draw!`);
+
+        //resets the counters for a new game
+        playerScore = 0;
+        cpuScore = 0;
+
+    }
     </script>
